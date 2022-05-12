@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Index - Search</title>
+    </head>
+    <body>
+        <form role="search" method="get" id="searchform">
+            <input type="search" name="query" placeholder="Search" required>
+            <button type="submit"><span class="ion-ios-search-strong">Go</span></button>
+        </form>
+        
+        {% if query %}
+            <h2> Actual search:</h2> <h3>{{ query }}</h3>
+        {% endif %}
+
+        {% for doc in docs %}
+            <div>
+                <a href="{{ doc.id }}">
+                    <br>
+                    <h3>
+                        {{ doc.title }}
+                    </h3>
+                </a>
+            </div>
+            <div>
+                <span> {{ doc.get_summary }}</span>
+            </div>
+        {% endfor %}
+        
+    </body>
+</html>
