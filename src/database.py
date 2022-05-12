@@ -10,6 +10,7 @@ def create_database(db_path):
 
 def add_document(db:Connection, doc:Document):
     lexer = ' '.join([lex for lex in doc.lexer])
+    print(doc.title, ' >>>> ', doc.text)
     db.execute(f'INSERT INTO "index_document" ("id", "lexer", "title", "text") values ({doc.id}, "{lexer}", "{doc.title}", "{doc.text}");')
 
 def add_token(db:Connection, token:Token):

@@ -18,7 +18,7 @@ class CranCorpusAnalyzer(CorpusAnalyzer):
         getting_words = False
         getting_title = False
 
-        for i, line in enumerate(file.readlines() + ['.I 0']):
+        for line in file.readlines() + ['.I 0']:
             match = id_re.match(line)
             if match is not None:
                 if len(current_lines) > 0:

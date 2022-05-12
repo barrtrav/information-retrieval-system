@@ -83,6 +83,18 @@ DATABASES = {
     'cran': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': '../source/database/cran.db',
+    },
+    'cisi': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '../source/database/cisi.db',
+    },
+    'npl': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '../source/database/npl.db',
+    },
+    'wiki': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '../source/database/wiki.db',
     }
 }
 

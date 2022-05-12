@@ -1,7 +1,6 @@
-from pathlib import Path
+from corpus import *
 from system import IRSystem
 from models import VectorMRI
-from corpus import LisaCorpusAnalyzer, CranCorpusAnalyzer
 
 def make_query(query, system:IRSystem):
     docs, ranking = system.make_query(query, get_ranking=True)
@@ -12,12 +11,17 @@ def make_query(query, system:IRSystem):
 def get_analyzer(name):
     if name == 'lisa':
         analyzer = LisaCorpusAnalyzer()
-        return IRSystem(VectorMRI(analyzer))
     elif name == 'cran':
         analyzer = CranCorpusAnalyzer()
-        return IRSystem(VectorMRI(analyzer))
+    elif name == 'npl':
+        analyzer = NplCorpusAnalyzer()
+    elif name == 'wiki':
+        analyzer = WikiCorpusAnalyzer()
+    elif name == 'cisi':
+        analyzer = CranCorpusAnalyzer(name='cisi')
     else:
         return None
+    return IRSystem(VectorMRI(analyzer))
 
 if __name__ == '__main__':
     while True:
