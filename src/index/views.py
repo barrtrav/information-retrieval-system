@@ -24,8 +24,6 @@ def index(request):
         #analyzer = system.parse
         docs = system.make_query(query)
         query = query[:50]+'...'
-        for doc in system.get_recommended_documents():
-            print(doc)
     else:
         docs = []
 

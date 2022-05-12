@@ -6,7 +6,7 @@ from utils import clear_text
 from . import CorpusAnalyzer
 
 class LisaCorpusAnalyzer(CorpusAnalyzer):
-    def __init__(self, name='lisa') -> None:
+    def __init__(self, name='lisa', django=False) -> None:
         self.id_re = re.compile('Document\s+(\d+)')
         super().__init__(name)
 

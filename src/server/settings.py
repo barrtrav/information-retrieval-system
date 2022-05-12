@@ -79,6 +79,10 @@ DATABASES = {
     'lisa': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': '../source/database/lisa.db',
+    },
+    'cran': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '../source/database/cran.db',
     }
 }
 
