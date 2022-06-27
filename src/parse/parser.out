@@ -1,0 +1,202 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> p
+Rule 1     p -> t x
+Rule 2     x -> OR t x
+Rule 3     x -> <empty>
+Rule 4     t -> f y
+Rule 5     y -> AND f y
+Rule 6     y -> <empty>
+Rule 7     f -> NOT f
+Rule 8     f -> WORD f
+Rule 9     f -> WORD
+
+Terminals, with rules where they appear
+
+AND                  : 5
+NOT                  : 7
+OR                   : 2
+WORD                 : 8 9
+error                : 
+
+Nonterminals, with rules where they appear
+
+f                    : 4 5 7 8
+p                    : 0
+t                    : 1 2
+x                    : 1 2
+y                    : 4 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . p
+    (1) p -> . t x
+    (4) t -> . f y
+    (7) f -> . NOT f
+    (8) f -> . WORD f
+    (9) f -> . WORD
+
+    NOT             shift and go to state 4
+    WORD            shift and go to state 5
+
+    p                              shift and go to state 1
+    t                              shift and go to state 2
+    f                              shift and go to state 3
+
+state 1
+
+    (0) S' -> p .
+
+
+
+state 2
+
+    (1) p -> t . x
+    (2) x -> . OR t x
+    (3) x -> .
+
+    OR              shift and go to state 7
+    $end            reduce using rule 3 (x -> .)
+
+    x                              shift and go to state 6
+
+state 3
+
+    (4) t -> f . y
+    (5) y -> . AND f y
+    (6) y -> .
+
+    AND             shift and go to state 9
+    OR              reduce using rule 6 (y -> .)
+    $end            reduce using rule 6 (y -> .)
+
+    y                              shift and go to state 8
+
+state 4
+
+    (7) f -> NOT . f
+    (7) f -> . NOT f
+    (8) f -> . WORD f
+    (9) f -> . WORD
+
+    NOT             shift and go to state 4
+    WORD            shift and go to state 5
+
+    f                              shift and go to state 10
+
+state 5
+
+    (8) f -> WORD . f
+    (9) f -> WORD .
+    (7) f -> . NOT f
+    (8) f -> . WORD f
+    (9) f -> . WORD
+
+    AND             reduce using rule 9 (f -> WORD .)
+    OR              reduce using rule 9 (f -> WORD .)
+    $end            reduce using rule 9 (f -> WORD .)
+    NOT             shift and go to state 4
+    WORD            shift and go to state 5
+
+    f                              shift and go to state 11
+
+state 6
+
+    (1) p -> t x .
+
+    $end            reduce using rule 1 (p -> t x .)
+
+
+state 7
+
+    (2) x -> OR . t x
+    (4) t -> . f y
+    (7) f -> . NOT f
+    (8) f -> . WORD f
+    (9) f -> . WORD
+
+    NOT             shift and go to state 4
+    WORD            shift and go to state 5
+
+    t                              shift and go to state 12
+    f                              shift and go to state 3
+
+state 8
+
+    (4) t -> f y .
+
+    OR              reduce using rule 4 (t -> f y .)
+    $end            reduce using rule 4 (t -> f y .)
+
+
+state 9
+
+    (5) y -> AND . f y
+    (7) f -> . NOT f
+    (8) f -> . WORD f
+    (9) f -> . WORD
+
+    NOT             shift and go to state 4
+    WORD            shift and go to state 5
+
+    f                              shift and go to state 13
+
+state 10
+
+    (7) f -> NOT f .
+
+    AND             reduce using rule 7 (f -> NOT f .)
+    OR              reduce using rule 7 (f -> NOT f .)
+    $end            reduce using rule 7 (f -> NOT f .)
+
+
+state 11
+
+    (8) f -> WORD f .
+
+    AND             reduce using rule 8 (f -> WORD f .)
+    OR              reduce using rule 8 (f -> WORD f .)
+    $end            reduce using rule 8 (f -> WORD f .)
+
+
+state 12
+
+    (2) x -> OR t . x
+    (2) x -> . OR t x
+    (3) x -> .
+
+    OR              shift and go to state 7
+    $end            reduce using rule 3 (x -> .)
+
+    x                              shift and go to state 14
+
+state 13
+
+    (5) y -> AND f . y
+    (5) y -> . AND f y
+    (6) y -> .
+
+    AND             shift and go to state 9
+    OR              reduce using rule 6 (y -> .)
+    $end            reduce using rule 6 (y -> .)
+
+    y                              shift and go to state 15
+
+state 14
+
+    (2) x -> OR t x .
+
+    $end            reduce using rule 2 (x -> OR t x .)
+
+
+state 15
+
+    (5) y -> AND f y .
+
+    OR              reduce using rule 5 (y -> AND f y .)
+    $end            reduce using rule 5 (y -> AND f y .)
+

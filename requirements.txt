@@ -1,0 +1,5 @@
+nltk
+gensim
+whoosh
+sklearn
+django

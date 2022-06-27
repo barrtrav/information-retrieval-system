@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Home - Page</title>
+    </head>
+    <body>
+        <div style="text-align: center;margin-top: 4cm;" class="green-color">
+            <img src="{% static 'goog1.png' %}">
+        </div>
+        <div style="text-align: center">
+            <form role="search" method="get">
+                <div>
+                    <input style="height:30pt; width: 12cm; border-radius: 10pt;;margin-top: 20pt;" type="search" name="query" placeholder="Search" required>
+                    <button style="height:30pt; border-radius:10pt;border-bottom: 1pt;background-color: transparent;" type="submit">Go</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

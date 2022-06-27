@@ -1,32 +1,45 @@
 <!DOCTYPE html>
-
+{% load staticfiles %}
 <html>
     <head>
-        <title>Index - Search</title>
+        <title>Result</title>
     </head>
     <body>
-        <form role="search" method="get" id="searchform">
-            <input type="search" name="query" placeholder="Search" required>
-            <button type="submit"><span class="ion-ios-search-strong">Go</span></button>
-        </form>
-        
-        {% if query %}
-            <h2> Actual search:</h2> <h3>{{ query }}</h3>
+        <div style="margin-top: 10pt;" class="green-color">
+            <img src="{% static 'Untitled.png' %}">
+        </div>
+        <div>
+            <form role="search" method="get">
+                <div>
+                    <input style="height:25pt; width: 10cm; border-radius: 10pt;;margin-top: 10pt;" type="search" name="query" placeholder="Search" required>
+                    <button style="height:25pt; border-radius:10pt;border-bottom: 1pt;background-color: transparent;" type="submit">Go</button>
+                </div>
+            </form>
+        </div>
+        {% if expansion %}
+        <div>
+            <h2>Expansion:</h2>
+            {% for exp in expansion %}
+            {{ exp }}
+            {% endfor %}
+        </div>
         {% endif %}
-
         {% for doc in docs %}
-            <div>
-                <a href="{{ doc.id }}">
-                    <br>
-                    <h3>
-                        {{ doc.title }}
-                    </h3>
-                </a>
-            </div>
-            <div>
-                <span> {{ doc.get_summary }}</span>
-            </div>
+        <div style=" margin-top:20pt;margin-bottom:20pt;margin-left:5pt;margin-right:20pt;">
+            <a href="{{ doc.id }}"><h3>{{ doc.id }} : {{ doc.title }}</h3></a>
+            <p style="margin-left: 15pt;">{{ doc.summary }}</p>
+        </div>
         {% endfor %}
-        
+        {% if recommend %}
+        <div>
+            <h2>Recommend:</h2>
+            {% for doc in recommend %}
+            <div style=" margin-top:20pt;margin-bottom:20pt;margin-left:5pt;margin-right:20pt;">
+                <a href="{{ doc.id }}"><h3>{{ doc.id }} : {{ doc.title }}</h3></a>
+                <p style="margin-left: 15pt;">{{ doc.summary }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
     </body>
 </html>

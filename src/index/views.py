@@ -1,40 +1,49 @@
-import os
-
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.template import RequestContext
 
-from corpus import CorpusAnalyzer
-from models import VectorMRI
-from system import IRSystem
+from model import *
+from corpus import *
+from system import *
+from expansion import Expansion
 
-try:
-    db_name = os.environ['database']
-    analyzer = CorpusAnalyzer(name=db_name, django=True)
-    system = IRSystem(VectorMRI(analyzer), django=True)
-except KeyError:
-    system = None
+systems = VectorSystem(VectorModel(CranCorpus()))
+user_feed = []
+last_query = []
+last_docs = []
 
-urlpatterns = []
-
-def index(request):
+def home(request):
     query = request.GET.get('query')
+    if query  is not None:return render(request, 'index.html', context = MakeQuery(query))
+    return render(request, 'home.html')
+
+def document(request, doc_id):
+    user_feed.append(doc_id)
+    doc = systems.model.corpus.documents[doc_id]
+    return render(request, 'document.html', context={'doc' : doc})
+
+def MakeQuery(query):
     
+    if last_query and user_feed:
+        systems.UserFeedBack(last_query[-1], user_feed, last_docs)
+        while len(last_docs) > 0:
+            last_docs.pop(0)
+        while len(user_feed) > 0:
+            user_feed.pop(0)
+        while len(last_query) > 0:
+            last_query.pop(0)
+
+    docs = []
+    recommend = []
+    expansion = []
+
     if query:
-        #analyzer = system.parse
-        docs = system.make_query(query)
-        query = query[:50]+'...'
-    else:
-        docs = []
+        docs, ranking = systems.MakeQuery(query)
+        systems.AutoFeedBack(query, ranking)
+        expansion = Expansion(query, systems.model)
+        recommend = systems.Recommend(ranking)
 
-    return render(request, 'index.html', context={'query':query, 'docs': docs[:20]})
-
-def viewdoc(request):
-    doc_id = int(request.get_full_path().split('/')[-1])
-    doc = analyzer.mapping[doc_id]
-    return render(request, 'document.html', 
-        context={
-            'id':str(doc.id) + ' - ' + doc.title[:20], 
-            'title':doc.title, 
-            'text':doc.text.capitalize()}
-        )
+        for doc_id, _ in ranking:
+            last_docs.append(doc_id)
+        last_query.append(query)
+    
+    return {'docs' : docs, 'recommend' : recommend, 'expansion' : expansion}

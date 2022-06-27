@@ -11,16 +11,16 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-from pathlib import Path
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-#BASE_DIR = Path(os.getcwd())
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'hufi^h_)gi^3d(ef_1zs8wtt5r!tqr^pn8!+ihb9@bpu%^%$r*'
+SECRET_KEY = '!+!umpjb^+tcxxxnm%7$5%-e@c@&%ayh&m#twc9n%xf(7ke+2_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -74,29 +74,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {},
-    'lisa': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '../source/database/lisa.db',
-    },
-    'cran': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '../source/database/cran.db',
-    },
-    'cisi': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '../source/database/cisi.db',
-    },
-    'npl': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '../source/database/npl.db',
-    },
-    'wiki': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '../source/database/wiki.db',
-    }
-}
+DATABASES = {}
 
 
 # Password validation

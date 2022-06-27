@@ -1,15 +1,7 @@
-from . import views
 from django.urls import path
-from .models import IndexDocument
-
-try:
-    import os
-    db_name = os.environ['database']
-    docs = IndexDocument.objects.using(db_name).all()
-    urlsplus = [path(str(doc.id), views.viewdoc, name='str(doc.id)') for doc in docs]
-except KeyError:
-    urlsplus = []
+from index.views import home, document
 
 urlpatterns = [
-    path('', views.index, name='index'),
-] + urlsplus
+    path('', view=home, name='home'),
+    path('<int:doc_id>/', view=document, name='document')
+]
